@@ -158,8 +158,12 @@ func (std *stdDriver) ResetSession(ctx context.Context) error {
 
 func (std *stdDriver) Ping(ctx context.Context) error { return std.conn.ping(ctx) }
 
-func (std *stdDriver) Begin() (driver.Tx, error) { return std, nil }
+func (std *stdDriver) Begin() (driver.Tx, error) {
+	fmt.Println("HERE 1 oops")
+	return std, nil
+}
 
+// BeginTx(ctx context.Context, opts TxOptions) (Tx, error)
 func (std *stdDriver) BeginTx(ctx context.Context, opts driver.TxOptions) (driver.Tx, error) {
 	// Check the transaction level. If the transaction level is non-default
 	// then return an error here as the BeginTx driver value is not supported.
@@ -170,6 +174,7 @@ func (std *stdDriver) BeginTx(ctx context.Context, opts driver.TxOptions) (drive
 	// If a read-only transaction is requested return an error as the
 	// BeginTx driver value is not supported.
 	if opts.ReadOnly {
+		fmt.Println("HERE 2 oops")
 		return nil, errors.New("sql: driver does not support read-only transactions")
 	}
 
